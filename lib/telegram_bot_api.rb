@@ -2,6 +2,7 @@ require "telegram_bot_api/version"
 require "telegram_bot_api/configuration"
 require "telegram_bot_api/http_client"
 require "telegram_bot_api/client"
+require "telegram_bot_api/message"
 
 module TelegramBotApi
 
