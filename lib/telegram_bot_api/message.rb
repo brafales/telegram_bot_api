@@ -4,7 +4,7 @@ module TelegramBotApi
     attr_reader :text, :chat
 
     def initialize(payload)
-      @message = payload["text"]
+      @text = payload["text"]
       @chat = payload["chat"]
     end
   end
