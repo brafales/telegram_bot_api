@@ -2,22 +2,18 @@ module TelegramBotApi
   class Client
     TELEGRAM_API_ENDPOINT = "https://api.telegram.org"
 
-    def self.set_webhook(url:)
-      connection.get(set_webhook_url, url: url)
-    end
-
-    def self.send_message(message, chat_id)
-      HttpClient.post(url: send_message_url, params: { chat_id: chat_id, text: message })
+    def self.execute(request)
+      unless request.valid?
+        raise(ArgumentError, request.errors)
+      end
+      HttpClient.make_request(verb: request.verb, url: request_url(request), params: request.to_json)
     end
 
     private
 
-    def self.set_webhook_url
-      "#{TELEGRAM_API_ENDPOINT}/#{bot_path}/setWebhook"
-    end
+    def self.request_url(request)
+      "#{TELEGRAM_API_ENDPOINT}/#{bot_path}/#{request.endpoint_url}"
 
-    def self.send_message_url
-      "#{TELEGRAM_API_ENDPOINT}/#{bot_path}/sendMessage"
     end
 
     def self.bot_path

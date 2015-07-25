@@ -3,7 +3,24 @@ require 'typhoeus'
 module TelegramBotApi
   class HttpClient
 
-    def self.get(url:, options: {})
+    def self.make_request(verb:, url:, params:)
+      method = case verb
+      when :get
+        :get
+      when :post
+        :post
+      end
+
+      unless method
+        raise(ArgumentError, "Invalid verb")
+      end
+
+      self.send(method, url: url, params: params)
+    end
+
+    private
+
+    def self.get(url:, params: {})
       Typhoeus.get(url,  headers: {'Content-Type'=> "application/json"}, params: params)
     end
 

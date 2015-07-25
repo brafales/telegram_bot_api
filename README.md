@@ -1,8 +1,6 @@
 # TelegramBotApi
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/telegram_bot_api`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Telegram Bot Api written in Ruby. Still in early stages, supports for now only a couple of methods.
 
 ## Installation
 
@@ -22,7 +20,42 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Configure the gem using this snippet:
+
+```ruby
+TelegramBotApi.configure do |config|
+  config.auth_token = YOUR_BOT_AUTH_TOKEN
+end
+```
+
+Once the auth token has been setup, you can create request objects,
+configure them to your liking and execute them using the `Client` class.
+
+Here's how to create a `SendMessage` request:
+
+```ruby
+request = TelegramBotApi::Requests::SendMessage.new(
+  {
+    chat_id: 1234,
+    text: "This is a test message"
+  }
+)
+
+TelegramBotApi::Client.execute(request)
+```
+
+The gem also provides some simple validation of requests, so you can make sure all the mandatory parameters have been sent:
+
+```ruby
+request = TelegramBotApi::Requests::SendMessage.new(
+  {
+    text: "This is a test message"
+  }
+)
+
+request.valid? #false
+request.errors #[:chat_id]
+```
 
 ## Development
 
@@ -32,7 +65,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/telegram_bot_api.
+Bug reports and pull requests are welcome on GitHub at https://github.com/brafales/telegram_bot_api.
 
 
 ## License
