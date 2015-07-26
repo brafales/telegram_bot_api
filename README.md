@@ -1,4 +1,4 @@
-# TelegramBotApi
+# TelegramBotApi [![Build Status](https://travis-ci.org/brafales/telegram_bot_api.svg?branch=master)](http://travis-ci.org/brafales/telegram_bot_api)
 
 Telegram Bot Api written in Ruby. Still in early stages, supports for now only a couple of methods.
 
